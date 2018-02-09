@@ -11,7 +11,11 @@ router.route('/')
     res.send({message:"super secret code is abc"})
   })
 
+router.route('/signup')
+  .post(Authentication.signup)
 
+router.route('/signin')
+  .post(requireSignin,Authentication.signin)
 
 // app.get('/',requireAuth,function(req,res){
 //   res.send({message:"super secret code is abc"})

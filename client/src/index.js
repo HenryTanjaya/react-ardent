@@ -8,9 +8,11 @@ import App from './components/app';
 import Signin from './components/auth/signin';
 import Signout from './components/auth/signout';
 import Signup from './components/auth/signup';
-import Feature from './components/feature';
+import Admin from './components/admin';
 import RequireAuth from './components/auth/require_auth';
 import Landing from './components/landing';
+import PortfolioIndex from './components/portfolio/portfolio_index';
+import AdminLanding from './components/admin/landing';
 import reducers from './reducers';
 import {AUTH_USER} from './actions/types';
 
@@ -28,7 +30,9 @@ ReactDOM.render(
         <Route path="signin" component={Signin} />
         <Route path="signout" component={Signout} />
         <Route path="signup" component={Signup} />
-        <Route path="feature" component={RequireAuth(Feature)} />
+        <Route path="portfolio" component={PortfolioIndex} />
+        <Route path="admin" component={RequireAuth(Admin)} />
+        <Route path="admin/landing" component={RequireAuth(AdminLanding)} />
       </Route>
     </Router>
   </Provider>

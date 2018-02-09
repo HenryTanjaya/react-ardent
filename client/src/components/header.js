@@ -6,17 +6,23 @@ import {Link} from 'react-router';
 class Header extends Component {
   renderLinks(){
     if(this.props.authenticated){
-      return <li className="nav-item">
-        <Link className="nav-link" to="/signout">Sign out</Link>
-      </li>
+      return [
+        <li className="nav-item" key={4}>
+          <Link className="nav-link" to="/admin">Dashboard</Link>
+        </li>,
+        <li className="nav-item" key={5}>
+          <Link className="nav-link" to="/signout">Sign out</Link>
+        </li>
+        ]
     } else {
       return [
-        <li className="nav-item" key={1}>
+        <li className="nav-item" key={2}>
           <Link className="nav-link" to="/signin">Sign in</Link>
         </li>,
-        <li className="nav-item" key={2}>
+        <li className="nav-item" key={3}>
           <Link className="nav-link" to="/signup">Sign up</Link>
-        </li>
+        </li>,
+
       ];
     }
   }
@@ -26,7 +32,7 @@ class Header extends Component {
       <nav className="navbar navbar-light">
         <Link to="/" className="navbar-brand">React Ardent</Link>
         <ul className="nav navbar-nav">
-          <li className="nav-item" key={3}>
+          <li className="nav-item" key={1}>
             <Link className="nav-link" to="/portfolio">Our Works</Link>
           </li>
           {this.renderLinks()}

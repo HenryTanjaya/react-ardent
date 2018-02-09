@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Landing = require("./models/landing");
-
+const Portfolio = require("./models/portfolio");
 var data = [
     {
         name: "Cloud's Rest",
@@ -41,23 +41,23 @@ var dataLanding = {
 
 
 function seedDB(){
-   // //Remove all portfolio
-   // Portfolio.remove({}, function(err){
-   //      if(err){
-   //          console.log(err);
-   //      }
-   //      console.log("removed portfolio");
-   //       //add a few portfolio
-   //      data.forEach(function(seed){
-   //          Portfolio.create(seed, function(err, portfolio){
-   //              if(err){
-   //                  console.log(err)
-   //              } else {
-   //                  console.log("added a portfolio");
-   //              }
-   //          });
-   //      });
-   //  });
+   //Remove all portfolio
+   Portfolio.remove({}, function(err){
+        if(err){
+            console.log(err);
+        }
+        console.log("removed portfolio");
+         //add a few portfolio
+        data.forEach(function(seed){
+            Portfolio.create(seed, function(err, portfolio){
+                if(err){
+                    console.log(err)
+                } else {
+                    console.log("added a portfolio");
+                }
+            });
+        });
+    });
 
     Landing.remove({}, function(err){
          if(err){

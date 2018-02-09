@@ -1,13 +1,13 @@
 import axios from 'axios';
 import {browserHistory} from 'react-router';
-import {AUTH_USER,AUTH_ERROR,UNAUTH_USER,FETCH_MESSAGE,FETCH_LANDING} from './types';
+import {AUTH_USER,AUTH_ERROR,UNAUTH_USER,FETCH_MESSAGE,FETCH_LANDING,UPDATE_LANDING} from './types';
 const ROOT_URL='http://localhost:3090';
 
 export function signinUser(values){
   const {email,password} = values;
   return function(dispatch){
     //submit email to server
-    axios.post(`${ROOT_URL}/signin`,{email,password})
+    axios.post(`${ROOT_URL}/api/user/signin`,{email,password})
       .then(response=>{
         //=if good
         //-update state to indicate user authenticare
@@ -15,7 +15,7 @@ export function signinUser(values){
         //-save jwt token
         localStorage.setItem('token',response.data.token)
         //-redirect to the route /feature
-        browserHistory.push('/feature');
+        browserHistory.push('/admin');
       })
       .catch(()=>{
         //=if bad
@@ -29,7 +29,7 @@ export function signupUser(values){
   const {email,password} = values;
   return function(dispatch){
     //submit email to server
-    axios.post(`${ROOT_URL}/signup`,{email,password})
+    axios.post(`${ROOT_URL}/api/user/signup`,{email,password})
       .then(response=>{
         //=if good
         //-update state to indicate user authenticare
@@ -37,7 +37,7 @@ export function signupUser(values){
         //-save jwt token
         localStorage.setItem('token',response.data.token)
         //-redirect to the route /feature
-        browserHistory.push('/feature');
+        browserHistory.push('/admin');
       })
       .catch(()=>{
         //=if bad
@@ -67,6 +67,28 @@ export function fetchLanding(){
         type:FETCH_LANDING,
         payload:response.data.Landing
       })
+    })
+  }
+}
+
+export function updateLanding(values){
+  return function(dispatch){
+    axios.post(`${ROOT_URL}/api/landing`,values,{
+      headers:{authorization:localStorage.getItem('token')}
+    })
+    .then(() => {
+      dispatch({
+        type:UPDATE_LANDING
+      })
+      browserHistory.push({
+          pathname: '/admin',
+          state: {
+              message: "Success Update"
+          }
+      });
+    })
+    .catch(()=>{
+      dispatch(authError('Bad update'))
     })
   }
 }

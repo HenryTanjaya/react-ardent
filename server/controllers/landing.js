@@ -7,3 +7,15 @@ exports.getLanding = function(req,res,next){
     res.status(200).json({Landing})
   })
 }
+
+exports.updateLanding = function(req,res,next){
+  Landing.findOneAndUpdate({title:'Ardent'},req.body, function(err, updatedLanding){
+        if(err){
+            res.status(400).json({message:err});
+        } else {
+            res.status(200).json({Landing:req.body});
+        }
+    });
+}
+
+module.exports= exports;
